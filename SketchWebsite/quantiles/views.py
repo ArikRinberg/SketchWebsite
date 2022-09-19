@@ -8,4 +8,5 @@ from django.template import loader
 def index(request):
     template = loader.get_template('quantiles/index.html')
     context = {}
+    print("Returning template")
     return HttpResponse(template.render(context, request))

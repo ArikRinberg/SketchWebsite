@@ -131,7 +131,6 @@ function onToggleAuto() {
         autoInterval = setInterval(() =>
         {
             onInsertClick();
-            onGenerateClick();
         },
         100);
         btn.innerText = "Stop Auto"
