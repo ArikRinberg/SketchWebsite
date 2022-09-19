@@ -1,0 +1,42 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="{% static 'quantiles/quantiles.js' %}">
+    {% comment %} <script src="quantiles.js"> </script> {% endcomment %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jstat@latest/dist/jstat.min.js"></script>
+    
+    <link rel="stylesheet" href="{% static 'quantiles/style.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Quantiles Sketch</h1>
+    <button onclick="resetSketch()">Reset Sketch</button> <br>
+    <div>
+        <h2>Set Distribution</h2>
+        <button onclick="onSetUniform()">Uniform[0,1000]</button>
+        <button onclick="onSetNormal()">Normal[0,1]</button>
+        <button onclick="onSetGamma()">Gamma[1,2]</button>
+    </div>
+    <div>
+        <h2>Sketch Controls</h2>
+        <button onclick="onInsertClick()">Insert Random Element</button> <br>
+        <input type="number" id="input-number" name="number" min="1" value="1000"> <Button onclick="onLargeInsertClick()">Insert Multiple Elements</Button> <br>
+        <button onclick="onGenerateClick()">Generate Report</button><br>
+        <button id="btn-auto" onclick="onToggleAuto()">Start Auto</button><br>
+    </div>
+    <div id="total-number-elements">
+        Number of elements inserted: 0
+    </div>
+    <table id="base-table">
+    </table>
+    <div id="chart-focus">
+        <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+    </div>
+</body>
+</html>
