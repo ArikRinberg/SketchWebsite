@@ -1,0 +1,38 @@
+{% extends "SketchWebsite/base.html" %}
+
+{% load static %}
+
+
+{% block extrascripts %}
+
+
+
+{% endblock %}
+
+
+{% block extracss %}
+
+
+{% endblock %}
+
+
+{% block content %}
+
+
+
+<div class="p-5">
+    {{payment.time}}
+    <form action="/countmin/edit/{{ payment.id }}/" method="POST" class="form">
+        <div class="form-group">
+            <fieldset class="border p-2">
+                <legend  class="float-none w-auto p-2">New Payment</legend>
+                {% csrf_token %}
+                <label for="amount"> Amount:</label><input type="number" name="amount" id="amount"  class="form-control" min="0" value={{ payment.amount }} required> <br>
+                <label for="location"> Location:</label> <input class="form-control" name="location" type="text" id="location" value={{ payment.location }} required><br>
+                {% comment %} <input type="datetime-local" id="payment-time" name="payment-time" class="form-control" required> {% endcomment %}
+                <input type="submit" value="Edit" class="btn btn-primary">
+            </fieldset>
+        </div>
+        </form>
+</div>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends "SketchWebsite/base.html" %}
+
+{% load static %}
+
+
+{% block extrascripts %}
+
+
+
+{% endblock %}
+
+
+{% block extracss %}
+
+
+{% endblock %}
+
+
+{% block content %}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var now = new Date();
+        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+
+        /* remove second/millisecond if needed - credit ref. https://stackoverflow.com/questions/24468518/html5-input-datetime-local-default-value-of-today-and-current-time#comment112871765_60884408 */
+        now.setMilliseconds(null)
+        now.setSeconds(null)
+
+        document.getElementById('payment-time').value = now.toISOString().slice(0, -1);
+     }, false);
+</script>
+
+<div class="p-5">
+    <form action="{% url 'countmin:add' %}" method="POST" class="form">
+        <div class="form-group">
+            <fieldset class="border p-2">
+                <legend  class="float-none w-auto p-2">New Payment</legend>
+                {% csrf_token %}
+                <label for="amount"> Amount:</label><input type="number" name="amount" id="amount"  class="form-control" min="0" placeholder="How much did you spend?" required> <br>
+                {% comment %} <label for="location"> Location:</label> <input class="form-control" name="location" type="text" id="location" placeholder="Where did you purchase?" required><br> {% endcomment %}
+                <label for="location"> Location:</label> <input class="form-control" type="text" id="location" name="location" list="location_list" placeholder="Where did you purchase?" required> <br>
+                <datalist id="location_list">
+                    {% for loc in all_locations %}
+                        <option value="{{loc}}">  
+                    {% endfor %}
+                </datalist>
+                <input type="datetime-local" id="payment-time" name="payment-time" class="form-control" required hidden readonly>
+                <input type="submit" value="Add" class="btn btn-primary">
+            </fieldset>
+        <a href="/countmin/payments/" class="mt-3 btn btn-warning btn-circle btn-lg" role="button">
+            Cancel
+        </a>
+        </div>
+    </form>
+</div>
+{% endblock %}

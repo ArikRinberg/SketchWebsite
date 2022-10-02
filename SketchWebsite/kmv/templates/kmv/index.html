@@ -1,0 +1,48 @@
+{% extends "SketchWebsite/base.html" %}
+
+{% load static %}
+
+
+{% block extrascripts %}
+
+
+<script src="{% static 'kmv/kmv.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js" integrity="sha512-E8QSvWZ0eCLGk4km3hxSsNmGWbLtSCSUcewDQPQWZF6pEU8GlT8a5fF32wOl1i8ftdMhssTrF/OhyGWwonTcXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+{% endblock %}
+
+
+{% block extracss %}
+
+<link rel="stylesheet" href="{% static 'kmv/style.css' %}">
+
+{% endblock %}
+
+
+{% block content %}
+
+<h1>Quantiles Sketch</h1>
+    <button onclick="resetSketch()">Reset Sketch</button> <br>
+    <div>
+        <h2>Sketch Controls</h2>
+        <button onclick="onInsertClick()">Insert Random Element</button> <br>
+        <input type="number" id="input-number-for-hash" name="number" min="1"> <Button onclick="onCalcHash()">Calc Hash</Button> <label id="hash-result"> </label><br>
+        <input type="number" id="input-number" name="number" min="1" value="1000"> <Button onclick="onLargeInsertClick()">Insert Multiple Elements</Button> <br>
+        <button onclick="onQueryClick()">Query</button> <label id="query-result"> </label><br>
+        {% comment %} <button onclick="onGenerateClick()">Generate Report</button><br> {% endcomment %}
+        <button id="btn-auto" onclick="onToggleAuto()">Start Auto</button><br>
+    </div>
+    <div id="total-number-elements">
+        Number of elements inserted: 0
+    </div>
+    <table id="base-table">
+    </table>
+    <div id="base-div" class="container">
+       
+    </div>
+
+    <div id="chart-focus" hidden>
+        <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+    </div>
+
+{% endblock %}

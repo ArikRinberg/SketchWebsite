@@ -2,13 +2,13 @@ var sketch = null
 const K = 16
 var auto = false
 
-var randomFunction = () => {
-    // return jStat.normal.sample(0,1).toFixed(2);;
-    return Math.floor(Math.random() * 100);
-}
+var updatedArrays = Array(33).fill(false);;
+
+var randomFunction = () => Math.random().toFixed(2);
 
 function onSetUniform() {
-    randomFunction = () => Math.floor(Math.random() * 100);
+    console.log("Set to uniform")
+    randomFunction = () => Math.random().toFixed(2);
 }
 
 function onSetNormal() {
@@ -23,6 +23,7 @@ function resetSketch() {
     sketch = new Quantiles(K);
     updateTable()
     resetGraph()
+    updatedArrays = Array(33).fill(false);
 }
 
 function resetGraph() {
@@ -42,6 +43,7 @@ function resetGraph() {
 function createBase() {
     const table = document.getElementById("base-table");
     var row = table.insertRow(-1);
+    row.classList.add("row-quantile")
     for (let i = 0; i < K * 2; i++) {
         const cell = row.insertCell(-1);
         cell.innerHTML = 0;
@@ -70,6 +72,10 @@ function updateTable() {
     var row = table.rows[0];
     var i;
     for (i = 0; i < 2*K; i++) {
+        if (updatedArrays[0]) {
+            updateQuantileRow(row);
+        }
+        updatedArrays[0] = false;
         var cell = row.cells[i]
         if (sketch.idx <= i) {
             cell.innerHTML = "-";
@@ -79,6 +85,12 @@ function updateTable() {
     }
     for (i = 0; i < 32; i++) {
         row = table.rows[i + 1];
+
+        if (updatedArrays[1+i]) {
+            updateQuantileRow(row);
+        }
+        updatedArrays[1+i] = false;
+
         for (let j = 0; j < K; j++) {
             cell = row.cells[j]
             if (sketch.levels[i] == null) {
@@ -89,6 +101,16 @@ function updateTable() {
         }
     }
 
+}
+
+function updateQuantileRow(row) {
+    row.style.transitionDuration = "0s"
+    row.style.backgroundColor = "green";
+
+    setTimeout(() => {
+        row.style.transitionDuration = "1s"
+        row.style.backgroundColor = "white";
+    }, 10)
 }
 
 function onGenerateClick() {
@@ -174,6 +196,7 @@ class Quantiles {
         if (this.idx == 2 * this.k) {
             this.propagate()
             this.idx = 0;
+            updatedArrays[0] = true;
         }
     }
 
@@ -183,6 +206,7 @@ class Quantiles {
         var sampledArray = this.sampleArray(arrayCopy)
         var i;
         for (i = 0; i < 32; i++) {
+            updatedArrays[1+i] = true;
             if (this.levels[i] == null) {
                 this.levels[i] = [...sampledArray]
                 break

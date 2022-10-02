@@ -9,13 +9,19 @@ tr {
 
 .quantile-data {
     font-size: large;
-    column-width: 2em;
-    height: 1.5em;
-    text-align: center;
+    /* height: 1.5em; */
+    border: 2px;
+    border-style: solid;
+    border-color: black;
     /* padding: 1em; */
 }
 
-.row-quantile {
+.p-kmv-item {
     background-color: white;
     transition: background-color 1s linear;
 }
+/* 
+.p-kmv-item:hover {
+    background-color: green;
+    transition: background-color 0s linear; 
+ } */

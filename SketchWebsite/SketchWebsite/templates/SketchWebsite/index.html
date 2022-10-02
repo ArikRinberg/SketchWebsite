@@ -1,0 +1,26 @@
+{% extends "SketchWebsite/base.html" %}
+
+{% load static %}
+
+
+{% block content %}
+<div class="m-5">
+<p>
+Processing high-speed, high-volume data often requires performing analytics on a representation of the data,
+rather than the data itself. To this end, data sketching algorithms have become an indispensable tool for
+high-speed computations over massive datasets. They maintain the streams' state and answer queries on it
+(e.g., how many unique elements are in the stream, what is the frequency of elements) using limited memory,
+at the cost of giving approximations rather than exact answers.
+</p>
+</br>
+<a href="quantiles" class="btn btn-info" role="button"><img src="{% static 'SketchWebsite/quantiles-btn2.png' %}" alt="Flowers in Chania"  width="100em" height="150em"></a>
+
+{% comment %} <a href="quantiles" class="btn btn-info" role="button">Quantiles</a> {% endcomment %}
+<a href="kmv" class="btn btn-info" role="button"><img src="{% static 'SketchWebsite/kmv-btn2.png' %}" alt="Flowers in Chania"  width="100em" height="150em"></a>
+
+<a href="countmin" class="btn btn-info" role="button">CountMin</a>
+
+
+</div>
+
+{% endblock %}

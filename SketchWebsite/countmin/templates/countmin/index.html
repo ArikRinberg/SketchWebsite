@@ -1,0 +1,46 @@
+{% extends "SketchWebsite/base.html" %}
+
+{% load static %}
+
+
+{% block extrascripts %}
+
+
+{% comment %} <script src="{% static 'quantiles/quantiles.js' %}"></script> {% endcomment %}
+
+{% endblock %}
+
+
+{% block extracss %}
+
+{% comment %} <link rel="stylesheet" href="{% static 'quantiles/style.css' %}"> {% endcomment %}
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container" class="mt-2">
+    <form action="{% url 'countmin:add' %}" method="POST" class="form">
+        <div class="form-group">
+            <fieldset class="border p-2">
+                <legend  class="float-none w-auto p-2">New Payment</legend>
+                {% csrf_token %}
+                <label for="amount"> Amount:</label><input type="number" name="amount" id="amount"  class="form-control" min="0" placeholder="How much did you spend?" required> <br>
+                <label for="location"> Location:</label> <input class="form-control" name="location" type="text" id="location" placeholder="Where did you purchase?" required><br>
+                <input type="datetime-local" id="payment-time" name="payment-time" class="form-control" required hidden readonly>
+                <input type="submit" value="Add" class="btn btn-primary">
+            </fieldset>
+        </div>
+    </form>
+    <div class="mt-2">
+        <a href="/countmin/payments/" class="btn btn-info btn-circle btn-lg" role="button">
+            {% comment %} <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+            </svg> {% endcomment %}
+            See All Payments
+        </a>
+    </div>
+</div>
+
+{% endblock %}

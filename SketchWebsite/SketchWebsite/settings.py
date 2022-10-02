@@ -25,12 +25,16 @@ SECRET_KEY = 'r28e(klef=(d6g%633zc&a3d(+tw05&%mu(_h%u7j3xt^ey6c4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['arikrinberg.pythonanywhere.com']
+ALLOWED_HOSTS = [
+    'arikrinberg.pythonanywhere.com',
+    '127.0.0.1'
+]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'countmin.apps.CountminConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,7 +58,12 @@ ROOT_URLCONF = 'SketchWebsite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'quantiles','templates')],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'SketchWebsite', 'templates'),
+            os.path.join(BASE_DIR, 'quantiles', 'templates'),
+            os.path.join(BASE_DIR, 'kmv', 'templates'),
+            os.path.join(BASE_DIR, 'countmin', 'templates'),
+            ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -121,6 +130,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'quantiles','static'),
+    os.path.join(BASE_DIR, 'kmv','static'),
+    os.path.join(BASE_DIR, 'countmin','static'),
+    os.path.join(BASE_DIR, 'SketchWebsite','static'),
 ]
 
 STATIC_URL = '/static/'
